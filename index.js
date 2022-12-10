@@ -169,7 +169,8 @@ async function run() {
     const repository = getInput("repository");
     const dryRun = core.getInput("dry-run");
     const secrets = getSecrets(core.getInput("secrets"));
-    const atomic = getInput("atomic") || true;
+    const atomic = getInput("atomic") || false;
+    const wait = core.getInput("wait");
 
     core.debug(`param: track = "${track}"`);
     core.debug(`param: release = "${release}"`);
@@ -187,6 +188,7 @@ async function run() {
     core.debug(`param: timeout = "${timeout}"`);
     core.debug(`param: repository = "${repository}"`);
     core.debug(`param: atomic = "${atomic}"`);
+    core.debug(`param: wait = "${wait}"`);
 
 
     // Setup command options and arguments.
@@ -195,7 +197,6 @@ async function run() {
       release,
       chart,
       "--install",
-      "--wait",
       `--namespace=${namespace}`,
     ];
 
@@ -209,6 +210,7 @@ async function run() {
     }
 
     if (dryRun) args.push("--dry-run");
+    if (wait) args.push("--wait");
     if (appName) args.push(`--set=app.name=${appName}`);
     if (version) args.push(`--set=app.version=${version}`);
     if (chartVersion) args.push(`--version=${chartVersion}`);

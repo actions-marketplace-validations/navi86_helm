@@ -1,6 +1,6 @@
-name: Deliverybot Helm Action
+name: Deliverybot Helm Action forked by navi86
 description: Deploys a helm chart
-author: deliverybot
+author: navi86
 icon: box
 color: gray-dark
 inputs:
@@ -23,6 +23,9 @@ inputs:
     required: false
   dry-run:
     description: Simulate an upgrade.
+    required: false
+  wait:
+    description: If true, wait deployment.
     required: false
   atomic:
     description: If true, upgrade process rolls back changes made in case of failed upgrade. Defaults to true.
